@@ -1,8 +1,13 @@
+"""
+Module car: Defines classes related to car specifications and behavior.
+"""
+
 from enum import Enum
+from dataclasses import dataclass
 from datetime import datetime
 
-
 class CarBrand(Enum):
+    """Enumeration for car brands."""
     ACURA = "Acura"
     ALFA_ROMEO = "Alfa Romeo"
     ASTON_MARTIN = "Aston Martin"
@@ -37,48 +42,72 @@ class CarBrand(Enum):
     VOLVO = "Volvo"
 
 class FuelType(Enum):
+    """Enumeration for fuel types."""
     PETROL = "Petrol"
     DIESEL = "Diesel"
     ELECTRIC = "Electric"
     HYBRID = "Hybrid"
 
 class EngineType(Enum):
+    """Enumeration for engine types."""
     I4 = "Inline 4"
     V6 = "V6"
     V8 = "V8"
     V12 = "V12"
 
+@dataclass
 class CarEngine:
-    def __init__(self, volume: int, type: EngineType, fuel: FuelType, horse_power: int, top_speed: int):
-        self.volume = volume
-        self.type = type
-        self.fuel = fuel
-        self.horse_power = horse_power
-        self.top_speed = top_speed
+    """Represents a car engine with volume, type, fuel, horse power, and top speed."""
+
+    def __init__(self, engine_spec: dict):
+        """
+        Initialize a CarEngine with engine specifications.
+
+        Args:
+            engine_spec (dict): A dictionary with keys 'volume', 'engine_type',
+                                'fuel', 'horse_power', and 'top_speed'.
+        """
+        self.volume = engine_spec['volume']
+        self.engine_type = engine_spec['engine_type']
+        self.fuel = engine_spec['fuel']
+        self.horse_power = engine_spec['horse_power']
+        self.top_speed = engine_spec['top_speed']
 
     def __str__(self):
-        return f"{self.type.value}, {self.volume}cc, {self.horse_power}HP, {self.top_speed}KM/h, Fuel: {self.fuel.value}"
+        """String representation of the CarEngine."""
+        return (f"{self.engine_type.value}, {self.volume}cc, {self.horse_power}HP, "
+                f"{self.top_speed}KM/h, Fuel: {self.fuel.value}")
 
 class Car:
-    def __init__(self, make: CarBrand, model: str, year: int, plate_number: str, engine: CarEngine):
-        self.make = make
-        self.model = model
-        self.year = year
-        self.engine = engine
-        self.plate_number = plate_number
+    """Represents a car with make, model, year, plate number, and engine."""
+
+    def __init__(self, car_spec: dict):
+        """
+        Initialize a Car with car specifications.
+
+        Args:
+            car_spec (dict): A dictionary with keys 'make', 'model', 'year',
+                             'plate_number', and 'engine'.
+        """
+        self.make = car_spec['make']
+        self.model = car_spec['model']
+        self.year = car_spec['year']
+        self.engine = car_spec['engine']
+        self.plate_number = car_spec['plate_number']
         self.parked_at = None
 
     def parking_duration(self):
+        """Calculate how long the car has been parked (in hours)."""
         if self.parked_at is None:
             return 0
-        else:
-            return (datetime.now() - self.parked_at).total_seconds() / 3600.0
-
+        return (datetime.now() - self.parked_at).total_seconds() / 3600.0
 
     def park(self):
+        """Mark the car as parked by setting the current time."""
         self.parked_at = datetime.now()
 
     def leave(self):
+        """Calculate the duration the car has been parked and reset parked_at."""
         duration = self.parking_duration()
         self.parked_at = None
         return duration
