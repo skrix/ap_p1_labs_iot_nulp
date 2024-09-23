@@ -1,8 +1,7 @@
-@startuml
+@startuml task_2_28
 start
 :x = a;
 while (x <= b)
-  :x <= b?;
   :k = 1;
   :sum = 0;
   while (abs(f(x, k)) > d)

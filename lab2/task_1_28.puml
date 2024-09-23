@@ -1,4 +1,4 @@
-@startuml
+@startuml task_1_28
 start
 :x = a;
 while (x <= b)
