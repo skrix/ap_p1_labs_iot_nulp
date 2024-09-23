@@ -10,7 +10,7 @@ else (false)
   :i = 0;
 
   while (i < length)
-    if (sum(0..i) == sum(i..length)) then (true)
+    if (sum(0..i) == sum(i+1..length)) then (true)
       :return i;
       stop
     endif
