@@ -1,19 +1,15 @@
 @startuml
 start
-:Initialize table, x = a;
-repeat
-  :x <= b?;
-  if (x < 2.2?) then (yes)
-    :Call func_one(x);
-  else (no)
-    if (x < 3?) then (yes)
-      :Call func_two(x);
-    else (no)
-      :Call func_three(x);
-    endif
+:x = a;
+while (x <= b)
+  if (x < 2.2) then (true)
+    :func_one(x);
+  elseif (2.2 <= x < 3) then (true)
+    :func_two(x);
+  else( x >= 3)
+    :func_three(x);
   endif
-  :Update table;
-  :Increment x by h;
-repeat while (x <= b)
+  :x += h;
+endwhile
 stop
 @enduml

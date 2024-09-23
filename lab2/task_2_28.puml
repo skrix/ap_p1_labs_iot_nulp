@@ -1,0 +1,17 @@
+@startuml
+start
+:x = a;
+while (x <= b)
+  :x <= b?;
+  :k = 1;
+  :sum = 0;
+  while (abs(f(x, k)) > d)
+    :sum += f(x, k);
+    :k += 1;
+  endwhile
+  :return sum;
+
+  :x += h;
+endwhile
+stop
+@enduml
