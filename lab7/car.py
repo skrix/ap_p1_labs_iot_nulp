@@ -102,12 +102,13 @@ class Car:
         """Calculate how long the car has been parked (in hours)."""
         if self.parked_at is None:
             return 0
-        return (datetime.now() - self.parked_at).total_seconds() / 3600.0
+        return round((datetime.now() - self.parked_at).total_seconds() / 3600.0, 2)
 
     def park(self):
         """Mark the car as parked by setting the current time."""
         if self.parked_at is not None:
             raise CarAlreadyParkedException('Car already parked!')
+
         self.parked_at = datetime.now()
 
     def leave(self):
