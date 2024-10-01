@@ -1,0 +1,15 @@
+@startuml task_1_28
+start
+:x = a;
+while (x <= b)
+  if (x < 2.2) then (true)
+    :func_one(x);
+  elseif (2.2 <= x < 3) then (true)
+    :func_two(x);
+  else( x >= 3)
+    :func_three(x);
+  endif
+  :x += h;
+endwhile
+stop
+@enduml
