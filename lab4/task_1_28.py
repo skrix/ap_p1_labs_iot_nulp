@@ -26,13 +26,25 @@ class WaterPump:
         """Return the brand of the water pump."""
         return self.__brand
 
+    def set_brand(self, brand):
+        """Updates the brand of the water pump."""
+        self.__brand = brand
+
     def get_watt(self):
         """Return the wattage of the water pump."""
         return self.__watt
 
+    def set_watt(self, watt):
+        """Updates the watt of the water pump."""
+        self.__watt = watt
+
     def get_capacity(self):
         """Return the capacity of the water pump in liters per hour."""
         return self.__capacity
+
+    def set_capacity(self, capacity):
+        """Updates the capacity of the water pump."""
+        self.__capacity = capacity
 
     def get_working_hours(self):
         """Return the working hours of the water pump."""
