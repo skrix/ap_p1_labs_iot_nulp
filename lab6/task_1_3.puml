@@ -1,0 +1,28 @@
+@startuml selection_sort_columns
+start
+:Initialize `rows = len(matrix)`;
+:Initialize `cols = len(matrix[0])`;
+
+:For each column `col` from 0 to `cols - 1`;
+  while (col < cols) is (true)
+    :For each row `row` from 0 to `rows - 2`;
+      while (row < rows - 1) is (true)
+        :Set `min_index = row`;
+
+        :For each `j` from `row + 1` to `rows - 1`;
+        while (j < rows) is (true)
+          if (matrix[j][col] < matrix[min_index][col]) then (true)
+            :Set `min_index = j`;
+          endif
+          :Increment `j`;
+        endwhile
+
+        :Swap `matrix[row][col]` and `matrix[min_index][col]`;
+        :Increment `row`;
+      endwhile
+    :Increment `col`;
+  endwhile
+
+:Return `matrix` sorted;
+stop
+@enduml
