@@ -2,7 +2,11 @@
 Module parking: Defines a Parking class for managing car parking.
 """
 
-from car import Car
+from car import Car, CarAlreadyParkedException, CarNotParkedException
+from logger import logged, LogMode
+
+class NoParkingLotException(Exception):
+    """Exception raised when parking lot is full."""
 
 class Parking:
     """Represents a parking lot with a capacity and hourly rate."""
@@ -12,15 +16,21 @@ class Parking:
         self.hourly_rate = hourly_rate
         self.cars = []
 
+    @logged(NoParkingLotException, LogMode.CONSOLE)
     def park_car(self, car: Car):
         """Park a car in the parking lot."""
         if len(self.cars) >= self.max_capacity:
-            print("Паркінг переповнений!")
-            return
-        car.park()
-        self.cars.append(car)
-        print(f"Автомобіль {car.plate_number} припарковано.")
+            raise NoParkingLotException("Паркінг переповнений!")
 
+        try:
+            car.park()
+        except CarAlreadyParkedException as e:
+            print(f"Error parking car {car.plate_number}: {e}")
+        else:
+            self.cars.append(car)
+            print(f"Автомобіль {car.plate_number} припарковано.")
+
+    @logged(CarNotParkedException, LogMode.CONSOLE)
     def leave_parking(self, car: Car):
         """Remove a car from the parking lot and calculate the parking fee."""
         if car in self.cars:

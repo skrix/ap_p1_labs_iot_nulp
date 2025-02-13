@@ -55,6 +55,12 @@ class EngineType(Enum):
     V8 = "V8"
     V12 = "V12"
 
+class CarAlreadyParkedException(Exception):
+    """Exception raised when a car is already parked."""
+
+class CarNotParkedException(Exception):
+    """Exception raised when a car is not parked but tried to leave."""
+
 @dataclass
 class CarEngine:
     """Represents a car engine with volume, type, fuel, horse power, and top speed."""
@@ -63,9 +69,7 @@ class CarEngine:
         """
         Initialize a CarEngine with engine specifications.
 
-        Args:
-            engine_spec (dict): A dictionary with keys 'volume', 'engine_type',
-                                'fuel', 'horse_power', and 'top_speed'.
+        engine_spec (dict): 'volume', 'engine_type', 'fuel', 'horse_power', 'top_speed'.
         """
         self.volume = engine_spec['volume']
         self.engine_type = engine_spec['engine_type']
@@ -85,9 +89,7 @@ class Car:
         """
         Initialize a Car with car specifications.
 
-        Args:
-            car_spec (dict): A dictionary with keys 'make', 'model', 'year',
-                             'plate_number', and 'engine'.
+        car_spec (dict): 'make', 'model', 'year', 'plate_number', 'engine'.
         """
         self.make = car_spec['make']
         self.model = car_spec['model']
@@ -100,14 +102,19 @@ class Car:
         """Calculate how long the car has been parked (in hours)."""
         if self.parked_at is None:
             return 0
-        return (datetime.now() - self.parked_at).total_seconds() / 3600.0
+        return round((datetime.now() - self.parked_at).total_seconds() / 3600.0, 2)
 
     def park(self):
         """Mark the car as parked by setting the current time."""
+        if self.parked_at is not None:
+            raise CarAlreadyParkedException('Car already parked!')
+
         self.parked_at = datetime.now()
 
     def leave(self):
         """Calculate the duration the car has been parked and reset parked_at."""
+        if self.parked_at is None:
+            raise CarNotParkedException('Car not parked!')
         duration = self.parking_duration()
         self.parked_at = None
         return duration

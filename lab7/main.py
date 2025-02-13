@@ -77,11 +77,17 @@ def main():
     print("\nСпроба запаркувати 4 машину на переповнений паркінг")
     parking.park_car(car4)
 
+    print("\nСпроба випаркувати не запарковану машину")
+    parking.leave_parking(car4)
+
     print("\nВиведення інформації про всі автомобілі на паркінгу")
     parking.print_cars()
 
     print("\nАвтомобіль залишає паркінг")
     parking.leave_parking(car1)
+
+    print("\nСпроба запаркувати вже запарковану машину")
+    parking.park_car(car3)
 
     print("\nВиведення інформації після виходу одного автомобіля")
     parking.print_cars()

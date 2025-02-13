@@ -43,6 +43,18 @@ def car2(create_engine):
     })
 
 @pytest.fixture
+def car3(create_engine):
+    """Fixture for setting up the third car."""
+    engine_instance = create_engine(4000, EngineType.V8, FuelType.DIESEL, 680, 410)
+    return Car({
+        'make': CarBrand.AUDI,
+        'model': 'RS8',
+        'year': 2019,
+        'plate_number': 'BC0690OX',
+        'engine': engine_instance
+    })
+
+@pytest.fixture
 def parking():
     """Fixture for setting up a sample parking lot."""
     return Parking(max_capacity=2, hourly_rate=20.0)
