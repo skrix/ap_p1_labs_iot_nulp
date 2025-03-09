@@ -74,6 +74,19 @@ class Matrix:
         else:
             raise TypeError("Addition is only supported between two Matrix instances.")
 
+    def __sub__(self, other):
+        """Перевантаження оператора віднімання для матриць."""
+        if isinstance(other, Matrix):
+            if len(self.matrix) != len(other.matrix) or len(self.matrix[0]) != len(other.matrix[0]):
+                raise ValueError("Matrices must have the same dimensions for addition.")
+            result = [
+                [self.matrix[i][j] - other.matrix[i][j] for j in range(len(self.matrix[0]))]
+                for i in range(len(self.matrix))
+            ]
+            return Matrix(result)
+        else:
+            raise TypeError("Addition is only supported between two Matrix instances.")
+
     def __str__(self):
         """Перевантаження виводу матриці."""
         table = PrettyTable(header=False)
@@ -114,3 +127,8 @@ other_matrix = Matrix(other_matrix_data)
 result_matrix = matrix + other_matrix
 print("Result of matrix addition:")
 print(result_matrix)
+result_matrix_sub = matrix - other_matrix
+print("Result of matrix addition:")
+print(result_matrix)
+print("Result of matrix substuction:")
+print(result_matrix_sub)
